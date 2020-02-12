@@ -1,0 +1,63 @@
+{
+  "type": "object",
+  "properties": {
+    "quantity": {
+      "type": "integer"
+    },
+    "file": {
+      "type": "string",
+      "contentEncoding": "base64"
+    },
+    "file-type": {
+      "type": "string",
+      "const": ".step"
+    },
+    "material": {
+      "type": "string"
+    },
+    "material-type": {
+      "type": "string"
+    },
+    "finish": {
+      "type": "string",
+      "enum": [ "As machined", "Smoothed", "Brushed" ]
+    },
+    "details": {
+      "type": "string"
+    }
+  },
+  "oneOf": [
+    {
+      "properties": {
+        "material": {
+          "type": "string",
+          "const": "Copper"
+        },
+        "material-type": {
+          "type": "string",
+          "enum": ["C110", "C101"]
+        }
+      }
+    }, {
+      "properties": {
+        "material": {
+          "type": "string",
+          "const": "Brass"
+        },
+        "material-type": {
+          "type": "string",
+          "enum": ["C360"]
+        }
+      }
+    }
+  ],
+  "required": [
+    "file",
+    "file-type",
+    "material",
+    "material-type",
+    "quantity",
+    "finish"
+  ],
+  "additionalProperties": false
+}
