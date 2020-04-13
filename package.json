@@ -16,6 +16,9 @@
     "capitano": "^1.9.1",
     "lodash": "^4.17.15",
     "node-zip": "^1.1.1",
-    "skhema": "^5.2.9"
+    "remark": "^12.0.0",
+    "remark-parse": "^8.0.0",
+    "skhema": "^5.2.9",
+    "to-vfile": "^6.1.0"
   }
 }
