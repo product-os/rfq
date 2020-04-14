@@ -16,9 +16,10 @@ const readJson = async (path) => {
 const generate = async (params, options) => {
   const path = params.path
   const config = await readJson(join(path, 'source', 'specification', 'spec.json'))
-  const hwType = options['hwType'].toLowerCase()
+  //const hwType = options['hwType'].toLowerCase()
+  const hwType = config.hwType.toLowerCase();
   const outputPath = options['output'] || path
-  const testFile = fs.readFileSync(join(path, 'test', 'test-script.txt'))
+  const testFile = fs.readFileSync(join(path, 'testing', 'Testing.md'))
   const opts = await validateAndParse(path, hwType, config)
   return buildRFQ(outputPath, hwType, opts, testFile)
 }
@@ -38,7 +39,7 @@ const buildRFQ = async (outPath, hwType, opts, testFile) => {
 
   //have to add the test file - will it always be the same folder?
   const testContent = Buffer.from(testFile, 'base64').toString('utf8')
-  zip.file('test-script.txt', testContent)
+  zip.file('Testing.md', testContent)
 
   // Now we add the rfq.json
   zip.file('rfq.json', JSON.stringify(output, null, 2))
@@ -103,7 +104,7 @@ const transformPart1 = async (path, part, fileTypes) => {
         }
       })
     },
-    processes: part.processes.map(_.lowerCase)
+    //processes: part.processes.map(_.lowerCase)
   }
 }
 
@@ -116,12 +117,6 @@ capitano.command({
       parameter: 'output',
       alias: ['o'],
       description: 'Output directory, defaults to path if not specified',
-    }, {
-      signature: 'hwType',
-      parameter: 'hwType',
-      alias: ['h'],
-      required: true,
-      description: 'Hardware project type',
     }
   ],
   action: generate
