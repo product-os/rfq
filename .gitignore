@@ -1,3 +1,9 @@
+*.pem
+!mock-cert.pem
+package-lock.json
+build/
+
+
 # Logs
 logs
 *.log

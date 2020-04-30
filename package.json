@@ -1,21 +1,46 @@
 {
   "name": "rfq",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "private": true,
+  "description": "generate RFQ archives for hardware repos",
+  "main": "build/index.js",
   "bin": {
     "rfq": "index.js"
   },
-  "keywords": [],
-  "author": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "tsc",
+    "start": "node ./build/index.js",
+    "prettify": "balena-lint --typescript --fix src/ test/",
+    "lint": "balena-lint --typescript src/ test/ && tsc --noEmit"
+  },
+  "engines": {
+    "node": ">= 8.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balena-io/rfq.git"
+  },
+  "author": "balena",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/balena-io/rfq/issues"
+  },
+  "homepage": "https://github.com/balena-io/rfq#readme",
+  "devDependencies": {
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
+  },
   "dependencies": {
-    "capitano": "^1.9.1",
-    "lodash": "^4.17.15",
+    "@balena/lint": "^5.0.4",
+    "@types/jszip": "^3.4.1",
+    "@types/lodash": "^4.14.150",
+    "capitano": "^1.9.2",
+    "jszip": "^3.5.0",
     "node-zip": "^1.1.1",
-    "skhema": "^5.2.9"
+    "skhema": "^5.3.0"
   }
 }
