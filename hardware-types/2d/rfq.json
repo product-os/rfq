@@ -4,13 +4,21 @@
     "quantity": {
       "type": "integer"
     },
-    "file": {
-      "type": "string",
-      "contentEncoding": "base64"
-    },
-    "file-type": {
-      "type": "string",
-      "const": ".step"
+    "files": {
+      "type": "array",
+      "items": {      
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "contentEncoding": "base64"
+          },
+          "file-type": {
+            "type": "string",
+            "enum": [".step", ".stl"]
+          } 
+        }
+      }
     },
     "material": {
       "type": "string"
@@ -20,7 +28,7 @@
     },
     "finish": {
       "type": "string",
-      "enum": [ "As machined", "Smoothed", "Brushed" ]
+      "enum": [ "As machined", "Smoothed", "Brushed"]
     },
     "details": {
       "type": "string"

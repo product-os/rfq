@@ -16,53 +16,63 @@ const readJson = async (path) => {
 const generate = async (params, options) => {
   const path = params.path
   const config = await readJson(join(path, 'source', 'specification', 'spec.json'))
-  const manufacturer = options['manufacturer'].toLowerCase()
-  const proc = options['process'].toLowerCase()
+  //const hwType = options['hwType'].toLowerCase()
+  const hwType = config.hwType.toLowerCase();
   const outputPath = options['output'] || path
-
-  const opts = await validateAndParse(path, manufacturer, proc, config)
-  return buildRFQ(outputPath, manufacturer, proc, opts)
+  const testFile = fs.readFileSync(join(path, 'testing', 'Testing.md'))
+  const opts = await validateAndParse(path, hwType, config)
+  return buildRFQ(outputPath, hwType, opts, testFile)
 }
 
-const buildRFQ = async (outPath, manufacturer, proc, opts) => {
-  // For each part in opts we add a correseponding file to the zip archive
+const buildRFQ = async (outPath, hwType, opts, testFile) => {
+  // For each part in opts we add the correseponding files to the zip archive
   const output = _.map(opts, (part) => {
-    const fileContent = Buffer.from(part.parameters.file, 'base64').toString('utf8')
-    zip.file(`${part.name}${part.parameters['file-type']}`, fileContent)
+    const fileZip = _.map(part.parameters.files, (file) => {
+      const fileContent = Buffer.from(file.file, 'base64').toString('utf8')
+      zip.file(`${part.name}${file['file-type']}`, fileContent)
+    })
     return {
       name: part.name,
-      parameters: _.omit(part.parameters, ['file', 'file-type'])
+      parameters: _.omit(part.parameters, ["files"])
     }
   })
+
+  //have to add the test file - will it always be the same folder?
+  const testContent = Buffer.from(testFile, 'base64').toString('utf8')
+  zip.file('Testing.md', testContent)
 
   // Now we add the rfq.json
   zip.file('rfq.json', JSON.stringify(output, null, 2))
 
+  
   // Generate and write zip file
   const data = zip.generate({
     base64: false,
     compression: 'DEFLATE'
   })
 
-  fs.writeFileSync(join(outPath, `${manufacturer}-${proc}.zip`), data, 'binary')
+  fs.writeFileSync(join(outPath, `${hwType}.zip`), data, 'binary')
 }
 
-const validateAndParse = async (path, manufacturer, proc, config) => {
-  const schema = await readJson(join(__dirname, 'manufacturers', manufacturer, proc, 'rfq.json'))
+const validateAndParse = async (path, hwType, config) => {
+  const schema = await readJson(join(__dirname, 'hardware-types', hwType, 'rfq.json'))
+  const fileTypes = await readJson(join(__dirname, 'hardware-types', hwType, 'fileTypes.json'))
   return Promise.all(_.map(config.manufacture, async (part) => {
-    const transformedPart = await transformPart(path, part)
-    if (!transformedPart.processes.includes(proc)) {
-      throw new Error(`${proc} is not a valid process for ${transformedPart.name}`)
-    }
+    const transformedPart = await transformPart1(path, part, fileTypes)
+    //if (!transformedPart.processes.includes(proc)) {
+    //  throw new Error(`${proc} is not a valid process for ${transformedPart.name}`)
+    //}
+
     const partRFQ = skhema.filter(schema, transformedPart.parameters)
 
     return {
       name: transformedPart.name,
-      parameters: partRFQ
+      parameters: transformedPart.parameters
     }
   }))
 }
 
+//this will vary depending on project type - e.g PCB won't have step files
 const transformPart = async (path, part) => {
   const file = fs.readFileSync(join(path, 'outputs', 'STEP', `${part.name}.step`))
   return {
@@ -70,11 +80,31 @@ const transformPart = async (path, part) => {
     parameters: {
       ...part.parameters,
 
-      file: file.toString('base64'),
-      // TODO: Generate this based on the manufacturer/proc pair
+      files: file.toString('base64'),
+      // TODO: Generate this based on the project type - for 2d give step and stl, in sub folder
       'file-type': '.step'
     },
     processes: part.processes.map(_.lowerCase)
+  }
+}
+
+const transformPart1 = async (path, part, fileTypes) => {
+  return{
+    ...part,
+    parameters: {
+      ...part.parameters,
+
+      files: _.map(fileTypes.fileTypes, (ext) => {  
+        const fileRead = fs.readFileSync(join(path, 'outputs', `${ext}`, `${part.name}` +'.' + ext))
+        const fileType = '.'+ ext
+        return{
+          file : fileRead.toString('base64'),
+          
+          'file-type' : fileType.toString('base64')
+        }
+      })
+    },
+    //processes: part.processes.map(_.lowerCase)
   }
 }
 
@@ -87,18 +117,6 @@ capitano.command({
       parameter: 'output',
       alias: ['o'],
       description: 'Output directory, defaults to path if not specified',
-    }, {
-      signature: 'manufacturer',
-      parameter: 'manufacturer',
-      alias: ['m'],
-      required: true,
-      description: 'Target manufacturer to generate RFQ for',
-    }, {
-      signature: 'process',
-      parameter: 'process',
-      alias: ['p'],
-      required: true,
-      description: 'Process type, depends on the choice of manufacturer',
     }
   ],
   action: generate
