@@ -1,0 +1,33 @@
+{
+    "type": "object",
+    "properties": {
+	"quantity": {
+	    "type": "integer"
+	},
+	"files": {
+	    "type": "array",
+	    "items": {
+		"type": "object",
+		"properties": {
+		    "file": {
+			"type": "string",
+			"contentEncoding": "base64"
+		    },
+		    "file-type": {
+			"type": "string",
+			"enum": [".step", ".stl"]
+		    }
+		}
+	    }
+	},
+	"details": {
+	    "type": "string"
+	}
+    },
+    "required": [
+	"file",
+	"file-type",
+	"quantity",
+    ],
+    "additionalProperties": false
+}
