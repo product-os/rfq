@@ -1,0 +1,462 @@
+{
+    "type": "object",
+    "required": [
+        "name",
+        "manufacture"
+    ],
+    "properties": {
+        "name": {
+            "$id": "#/properties/name",
+            "type": "string",
+            "default": ""
+        },
+        "hwType": {
+            "type": "string"
+        },
+        "manufacture": {
+            "$id": "#/properties/manufacture",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "parameters": {
+                    "type": "object",
+                    "default": {},
+                    "required": [
+                        "PCBManufacturing",
+                        "PCBSize",
+                        "Silkscreen",
+                        "Traces",
+                        "Holes",
+                        "Stencil",
+                        "PCBAssembly",
+                        "Other"
+                    ],
+                    "properties": {
+                        "PCBManufacturing": {
+                            "type": "object",
+                            "required": [
+                                "Quantity",
+                                "BoardType",
+                                "BoardMaterial"
+                            ],
+                            "properties": {
+                                "Quantity": {
+                                    "title": "Quantity",
+                                    "default": 1,
+                                    "minimum": 1,
+                                    "type": "integer"
+                                },
+                                "Panel": {
+                                    "title": "Panel",
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "BoardType": {
+                                    "title": "Board Type",
+                                    "default": "rigid",
+                                    "enum": [
+                                        "rigid",
+                                        "rigid-flex",
+                                        "flexible",
+                                        "burn-in",
+                                        "HDI",
+                                        "hybrid-PCB"
+                                    ],
+                                    "type": "string"
+                                },
+                                "BoardMaterial": {
+                                    "title": "Board Material",
+                                    "default": "FR-4",
+                                    "enum": [
+                                        "FR-1",
+                                        "FR-2",
+                                        "FR-3",
+                                        "FR-4",
+                                        "FR-5",
+                                        "CEM",
+                                        "CEM-1",
+                                        "CEM-2",
+                                        "CEM-3",
+                                        "Teflon",
+                                        "Polyimide",
+                                        "Duroid",
+                                        "Kapton",
+                                        "Polyester",
+                                        "Polyethylene",
+                                        "Polyflon",
+                                        "PTFE",
+                                        "Pyralux",
+                                        "XPC",
+                                        "Nelco 4000-13EPSI",
+                                        "Rogers 4350B",
+                                        "Panasonic",
+                                        "Megtron-6",
+                                        "Megtron-7"
+                                    ],
+                                    "type": "string"
+                                },
+                                "SurfaceFinish": {
+                                    "title": "Surface Finish",
+                                    "default": "HASL",
+                                    "enum": [
+                                        "ENIG",
+                                        "ENIPG",
+                                        "goldBare",
+                                        "carbon",
+                                        "copper",
+                                        "nickel",
+                                        "silver",
+                                        "solder",
+                                        "tin",
+                                        "HASL"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "PCBSize": {
+                            "type": "object",
+                            "title": "PCB Dimensions",
+                            "required": [
+                                "Length",
+                                "Width",
+                                "Layers",
+                                "Thickness"
+                            ],
+                            "properties": {
+                                "Length": {
+                                    "title": "Length",
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "title": "Value",
+                                            "default": 0,
+                                            "minimum": 0,
+                                            "type": "integer"
+                                        },
+                                        "unit": {
+                                            "title": "Value",
+                                            "type": "string",
+                                            "enum": [
+                                                "metric",
+                                                "imperial"
+                                            ],
+                                            "default": "metric"
+                                        }
+                                    }
+                                },
+                                "Width": {
+                                    "title": "Width",
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "title": "Value",
+                                            "default": 0,
+                                            "minimum": 0,
+                                            "type": "integer"
+                                        },
+                                        "unit": {
+                                            "title": "Value",
+                                            "type": "string",
+                                            "enum": [
+                                                "metric",
+                                                "imperial"
+                                            ],
+                                            "default": "metric"
+                                        }
+                                    }
+                                },
+                                "Layers": {
+                                    "title": "Layers",
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
+                                },
+                                "Thickness": {
+                                    "title": "Thickness",
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "title": "Value",
+                                            "default": 0,
+                                            "minimum": 0,
+                                            "type": "integer"
+                                        },
+                                        "unit": {
+                                            "title": "Value",
+                                            "type": "string",
+                                            "enum": [
+                                                "metric",
+                                                "imperial"
+                                            ],
+                                            "default": "metric"
+                                        }
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "Silkscreen": {
+                            "title": "Silkscreen",
+                            "type": "object",
+                            "properties": {
+                                "Position": {
+                                    "title": "Position",
+                                    "default": "top & bottom",
+                                    "enum": [
+                                        "top",
+                                        "bottom",
+                                        "top & bottom"
+                                    ],
+                                    "type": "string"
+                                },
+                                "Colour": {
+                                    "title": "Colour",
+                                    "default": "green",
+                                    "enum": [
+                                        "green",
+                                        "black",
+                                        "red",
+                                        "white"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "Traces": {
+                            "title": "Traces",
+                            "type": "object",
+                            "properties": {
+                                "MinWidth": {
+                                    "title": "Minimum width",
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "title": "Value",
+                                            "default": 0,
+                                            "minimum": 0,
+                                            "type": "integer"
+                                        },
+                                        "unit": {
+                                            "title": "Value",
+                                            "type": "string",
+                                            "enum": [
+                                                "metric",
+                                                "imperial"
+                                            ],
+                                            "default": "metric"
+                                        }
+                                    }
+                                },
+                                "MinSpace": {
+                                    "title": "Minimum Space",
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "title": "Value",
+                                            "default": 0,
+                                            "minimum": 0,
+                                            "type": "integer"
+                                        },
+                                        "unit": {
+                                            "title": "Value",
+                                            "type": "string",
+                                            "enum": [
+                                                "metric",
+                                                "imperial"
+                                            ],
+                                            "default": "metric"
+                                        }
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "Holes": {
+                            "title": "Holes/Drill",
+                            "type": "object",
+                            "properties": {
+                                "MinSize": {
+                                    "title": "Minimum Size",
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "title": "Value",
+                                            "default": 0,
+                                            "minimum": 0,
+                                            "type": "integer"
+                                        },
+                                        "unit": {
+                                            "title": "Value",
+                                            "type": "string",
+                                            "enum": [
+                                                "metric",
+                                                "imperial"
+                                            ],
+                                            "default": "metric"
+                                        }
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "Stencil": {
+                            "title": "Stencil",
+                            "type": "object",
+                            "properties": {
+                                "Stencil": {
+                                    "default": false,
+                                    "title": "Stencil",
+                                    "type": "boolean"
+                                },
+                                "Framework": {
+                                    "default": false,
+                                    "title": "Framework",
+                                    "type": "boolean"
+                                },
+                                "ElectroPolishing": {
+                                    "default": false,
+                                    "title": "ElectoPolishing",
+                                    "type": "boolean"
+                                },
+                                "Thickness": {
+                                    "title": "Thickness",
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "title": "Value",
+                                            "default": 0,
+                                            "minimum": 0,
+                                            "type": "integer"
+                                        },
+                                        "unit": {
+                                            "title": "Value",
+                                            "type": "string",
+                                            "enum": [
+                                                "metric",
+                                                "imperial"
+                                            ],
+                                            "default": "metric"
+                                        }
+                                    }
+                                },
+                                "Fiducials": {
+                                    "default": "",
+                                    "title": "Fiducials",
+                                    "enum": [
+                                        "half lasered board side",
+                                        "half lasered squeegee side",
+                                        "no fiducials"
+                                    ],
+                                    "type": "string"
+                                },
+                                "SolderBall": {
+                                    "title": "Solder Ball",
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "Position": {
+                                    "title": "Position",
+                                    "default": "",
+                                    "enum": [
+                                        "top",
+                                        "bottom",
+                                        "top & bottom"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "PCBAssembly": {
+                            "type": "object",
+                            "title": "PCB Assembly",
+                            "required": [
+                                "NumUniqueParts",
+                                "NumPlacements",
+                                "NumThruHole",
+                                "NumSMT"
+                            ],
+                            "properties": {
+                                "NumUniqueParts": {
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "title": "Number of unique parts",
+                                    "type": "integer"
+                                },
+                                "NumPlacements": {
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "title": "Number of Unique placements",
+                                    "type": "integer"
+                                },
+                                "NumThruHole": {
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "title": "Number of through hole components",
+                                    "type": "integer"
+                                },
+                                "NumSMT": {
+                                    "title": "Number of SMT components",
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "Other": {
+                            "type": "object",
+                            "title": "Other",
+                            "properties": {
+                                "CopperWeight": {
+                                    "title": "Copper Weight",
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "title": "Value",
+                                            "default": 0,
+                                            "minimum": 0,
+                                            "type": "integer"
+                                        },
+                                        "unit": {
+                                            "title": "Value",
+                                            "type": "string",
+                                            "enum": [
+                                                "metric",
+                                                "imperial"
+                                            ],
+                                            "default": "metric"
+                                        }
+                                    }
+                                },
+                                "GoldFingers": {
+                                    "title": "Gold fingers",
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "Certification": {
+                                    "title": "Certification",
+                                    "default": "",
+                                    "enum": [
+                                        "ITAR",
+                                        "UL",
+                                        "IPC 600",
+                                        "none"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            }
+
+        }
+    },
+    "additionalProperties": false
+}
