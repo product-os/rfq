@@ -1,7 +1,7 @@
 {
   "name": "rfq",
   "version": "1.1.0",
-  "private": true,
+  "private": false,
   "description": "generate RFQ archives for hardware repos",
   "main": "build/index.js",
   "bin": {
