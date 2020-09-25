@@ -1,33 +1,330 @@
 {
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
     "type": "object",
-    "properties": {
-	"quantity": {
-	    "type": "integer"
-	},
-	"files": {
-	    "type": "array",
-	    "items": {
-		"type": "object",
-		"properties": {
-		    "file": {
-			"type": "string",
-			"contentEncoding": "base64"
-		    },
-		    "file-type": {
-			"type": "string",
-			"enum": [".step", ".stl"]
-		    }
-		}
-	    }
-	},
-	"details": {
-	    "type": "string"
-	}
-    },
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
     "required": [
-	"file",
-	"file-type",
-	"quantity",
+        "name",
+        "manufacture"
     ],
-    "additionalProperties": false
+    "properties": {
+        "name": {
+            "$id": "#/properties/name",
+            "type": "string",
+            "default": ""
+        },
+        "manufacture": {
+            "$id": "#/properties/manufacture",
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "parameters": {
+                    "type": "object",
+                    "default": {},
+                    "required": [
+                        "PCBManufacturing",
+                        "PCBSize",
+                        "Silkscreen",
+                        "Traces",
+                        "Holes",
+                        "Stencil",
+                        "PCBAssembly",
+                        "Other"
+                    ],
+                    "properties": {
+                        "PCBManufacturing": {
+                            "type": "object",
+                            "required": [
+                                "Quantity",
+                                "BoardType",
+                                "BoardMaterial"
+                            ],
+                            "properties": {
+                                "Quantity": {
+                                    "title": "Quantity",
+                                    "default": 0,
+                                    "type": "integer"
+                                },
+                                "Panel": {
+                                    "title": "Panel",
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "BoardType": {
+                                    "title": "Board Type",
+                                    "default": "rigid",
+                                    "enum": [
+                                        "rigid",
+                                        "rigid-flex",
+                                        "flexible",
+                                        "burn-in",
+                                        "HDI",
+                                        "hybrid-PCB"
+                                    ],
+                                    "type": "string"
+                                },
+                                "BoardMaterial": {
+                                    "title": "Board Material",
+                                    "default": "FR-4",
+                                    "enum": [
+                                        "FR-1",
+                                        "FR-2",
+                                        "FR-3",
+                                        "FR-4",
+                                        "FR-5",
+                                        "CEM",
+                                        "CEM-1",
+                                        "CEM-2",
+                                        "CEM-3",
+                                        "Teflon",
+                                        "Polyimide",
+                                        "Duroid",
+                                        "Kapton",
+                                        "Polyester",
+                                        "Polyethylene",
+                                        "Polyflon",
+                                        "PTFE",
+                                        "Pyralux",
+                                        "XPC",
+                                        "Nelco 4000-13EPSI",
+                                        "Rogers 4350B",
+                                        "Panasonic",
+                                        "Megtron-6",
+                                        "Megtron-7"
+                                    ],
+                                    "type": "string"
+                                },
+                                "SurfaceFinish": {
+                                    "title": "Surface Finish",
+                                    "default": "HASL",
+                                    "enum": [
+                                        "ENIG",
+                                        "ENIPG",
+                                        "goldBare",
+                                        "carbon",
+                                        "copper",
+                                        "nickel",
+                                        "silver",
+                                        "solder",
+                                        "tin",
+                                        "HASL"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "PCBSize": {
+                            "type": "object",
+                            "title": "PCB Dimensions",
+                            "required": [
+                                "Length",
+                                "Width",
+                                "Layers",
+                                "Thickness"
+                            ],
+                            "properties": {
+                                "Length": {
+                                    "title": "Length",
+                                    "default": 0.0,
+                                    "type": "number"
+                                },
+                                "Width": {
+                                    "title": "Width",
+                                    "default": 0.0,
+                                    "type": "number"
+                                },
+                                "Layers": {
+                                    "title": "Layers",
+                                    "default": 0,
+                                    "type": "integer"
+                                },
+                                "Thickness": {
+                                    "title": "Thickness",
+                                    "default": 0.0,
+                                    "type": "number"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "Silkscreen": {
+                            "title": "Silkscreen",
+                            "type": "object",
+                            "properties": {
+                                "Position": {
+                                    "title": "Position",
+                                    "default": "top & bottom",
+                                    "enum": [
+                                        "top",
+                                        "bottom",
+                                        "top & bottom"
+                                    ],
+                                    "type": "string"
+                                },
+                                "Colour": {
+                                    "title": "Colour",
+                                    "default": "green",
+                                    "enum": [
+                                        "green",
+                                        "black",
+                                        "red",
+                                        "white"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "Traces": {
+                            "title": "Traces",
+                            "type": "object",
+                            "properties": {
+                                "MinWidth": {
+                                    "title": "Minimum width (mm)",
+                                    "default": 0.0,
+                                    "type": "number"
+                                },
+                                "MinSpace": {
+                                    "title": "Minimum Space (mm)",
+                                    "default": 0.0,
+                                    "type": "number"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "Holes": {
+                            "title": "Holes/Drill",
+                            "type": "object",
+                            "properties": {
+                                "MinSize": {
+                                    "title": "Minimum Size (mm)",
+                                    "default": 0.0,
+                                    "type": "number"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "Stencil": {
+                            "title": "Stencil",
+                            "type": "object",
+                            "properties": {
+                                "Stencil": {
+                                    "default": false,
+                                    "title": "Stencil",
+                                    "type": "boolean"
+                                },
+                                "Framework": {
+                                    "default": false,
+                                    "title": "Framework",
+                                    "type": "boolean"
+                                },
+                                "ElectroPolishing": {
+                                    "default": false,
+                                    "title": "Electopolishing",
+                                    "type": "boolean"
+                                },
+                                "Thickness": {
+                                    "default": 0.0,
+                                    "title": "Thickness (mm)",
+                                    "type": "number"
+                                },
+                                "Fiducials": {
+                                    "default": "",
+                                    "title": "Fiducials",
+                                    "enum": [
+                                        "half lasered board side",
+                                        "half lasered squeegee side",
+                                        "no fiducials"
+                                    ],
+                                    "type": "string"
+                                },
+                                "SolderBall": {
+                                    "title": "Solder Ball",
+                                    "default": "",
+                                    "type": "string"
+                                },
+                                "Position": {
+                                    "title": "Position",
+                                    "default": "",
+                                    "enum": [
+                                        "top",
+                                        "bottom",
+                                        "top & bottom"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "PCBAssembly": {
+                            "type": "object",
+                            "title": "PCB Assembly",
+                            "required": [
+                                "NumUniqueParts",
+                                "NumPlacements",
+                                "NumThruHole",
+                                "NumSMT"
+                            ],
+                            "properties": {
+                                "NumUniqueParts": {
+                                    "default": 0,
+                                    "title": "Number of unique parts",
+                                    "type": "integer"
+                                },
+                                "NumPlacements": {
+                                    "default": 0,
+                                    "title": "Number of Unique placements",
+                                    "type": "integer"
+                                },
+                                "NumThruHole": {
+                                    "default": 0,
+                                    "title": "Number of through hole components",
+                                    "type": "integer"
+                                },
+                                "NumSMT": {
+                                    "title": "Number of SMT components",
+                                    "default": 0,
+                                    "type": "integer"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "Other": {
+                            "type": "object",
+                            "title": "Other",
+                            "properties": {
+                                "CopperWeight": {
+                                    "title": "Copper Weight (oz)",
+                                    "default": 0.0,
+                                    "type": "number"
+                                },
+                                "GoldFingers": {
+                                    "title": "Gold fingers",
+                                    "default": false,
+                                    "type": "boolean"
+                                },
+                                "Certification": {
+                                    "title": "Certification",
+                                    "default": "",
+                                    "enum": [
+                                        "ITAR",
+                                        "UL",
+                                        "IPC 600",
+                                        "none"
+                                    ],
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            }
+
+        }
+    },
+    "additionalProperties": true
 }
