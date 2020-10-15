@@ -1,3 +1,3 @@
 {
-    "fileTypes" : ["rar", "xlsx", "APR_LIB", "EXTREP","G1", "G2", "GBL", "GBP","GBS", "GTL","GTO","GTP","GTS","RUL","apr","DRR","LDP","TXT","txt"]
+    "fileTypes" : [".rar", ".csv", ".APR_LIB", ".EXTREP",".G1", ".G2", ".GBL", ".GBP",".GBS", ".GTL",".GTO",".GTP",".GTS",".RUL",".apr",".DRR",".LDP",".TXT",".txt"]
 }
