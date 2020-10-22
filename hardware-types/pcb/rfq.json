@@ -42,7 +42,8 @@
                             "properties": {
                                 "Quantity": {
                                     "title": "Quantity",
-                                    "default": 0,
+                                    "default": 1,
+                                    "minimum": 1,
                                     "type": "integer"
                                 },
                                 "Panel": {
@@ -126,23 +127,27 @@
                             "properties": {
                                 "Length": {
                                     "title": "Length",
-                                    "default": 0.0,
-                                    "type": "number"
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
                                 },
                                 "Width": {
                                     "title": "Width",
-                                    "default": 0.0,
-                                    "type": "number"
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
                                 },
                                 "Layers": {
                                     "title": "Layers",
                                     "default": 0,
+                                    "minimum": 0,
                                     "type": "integer"
                                 },
                                 "Thickness": {
                                     "title": "Thickness",
-                                    "default": 0.0,
-                                    "type": "number"
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
                                 }
                             },
                             "additionalProperties": false
@@ -180,14 +185,16 @@
                             "type": "object",
                             "properties": {
                                 "MinWidth": {
-                                    "title": "Minimum width (mm)",
-                                    "default": 0.0,
-                                    "type": "number"
+                                    "title": "Minimum width",
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
                                 },
                                 "MinSpace": {
-                                    "title": "Minimum Space (mm)",
-                                    "default": 0.0,
-                                    "type": "number"
+                                    "title": "Minimum Space",
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
                                 }
                             },
                             "additionalProperties": false
@@ -197,9 +204,10 @@
                             "type": "object",
                             "properties": {
                                 "MinSize": {
-                                    "title": "Minimum Size (mm)",
-                                    "default": 0.0,
-                                    "type": "number"
+                                    "title": "Minimum Size",
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
                                 }
                             },
                             "additionalProperties": false
@@ -220,13 +228,14 @@
                                 },
                                 "ElectroPolishing": {
                                     "default": false,
-                                    "title": "Electopolishing",
+                                    "title": "ElectoPolishing",
                                     "type": "boolean"
                                 },
                                 "Thickness": {
-                                    "default": 0.0,
-                                    "title": "Thickness (mm)",
-                                    "type": "number"
+                                    "title": "Thickness",
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "type": "integer"
                                 },
                                 "Fiducials": {
                                     "default": "",
@@ -268,22 +277,26 @@
                             "properties": {
                                 "NumUniqueParts": {
                                     "default": 0,
+                                    "minimum": 0,
                                     "title": "Number of unique parts",
                                     "type": "integer"
                                 },
                                 "NumPlacements": {
                                     "default": 0,
+                                    "minimum": 0,
                                     "title": "Number of Unique placements",
                                     "type": "integer"
                                 },
                                 "NumThruHole": {
                                     "default": 0,
+                                    "minimum": 0,
                                     "title": "Number of through hole components",
                                     "type": "integer"
                                 },
                                 "NumSMT": {
                                     "title": "Number of SMT components",
                                     "default": 0,
+                                    "minimum": 0,
                                     "type": "integer"
                                 }
                             },
