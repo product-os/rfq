@@ -307,8 +307,17 @@
                             "title": "Other",
                             "properties": {
                                 "CopperWeight": {
-                                    "title": "Copper Weight (oz)",
-                                    "default": 0.0,
+                                    "title": "Copper Weight",
+                                    "default": 0,
+                                    "minimum": 0,
+                                    "enum": [
+                                        "12",
+                                        "18",
+                                        "18",
+                                        "35",
+                                        "70",
+                                        "105"
+                                        ],
                                     "type": "number"
                                 },
                                 "GoldFingers": {
