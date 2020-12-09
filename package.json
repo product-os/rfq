@@ -36,11 +36,8 @@
   },
   "dependencies": {
     "@balena/lint": "^5.0.4",
-    "@types/jszip": "^3.4.1",
     "@types/lodash": "^4.14.150",
     "capitano": "^1.9.2",
-    "jszip": "^3.5.0",
-    "node-zip": "^1.1.1",
     "skhema": "^5.3.0"
   }
 }
