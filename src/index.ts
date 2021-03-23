@@ -5,6 +5,8 @@ import JSZip from 'jszip';
 import * as Path from 'path';
 import * as skhema from 'skhema';
 
+
+const time = new Date().getTime();
 const zip =  new JSZip();
 
 const generate = async (
@@ -25,7 +27,7 @@ const generate = async (
 		type: 'nodebuffer',
 		compression: 'DEFLATE'
 	});
-	fs.writeFileSync(Path.join(options.output, 'release.zip'), data, 'binary');
+	fs.writeFileSync(Path.join(options.output, `release_${time}.zip`), data, 'binary');
 };
 
 // check the spec file against schema for the project type - at the moment this filters out fields not in the schema.
