@@ -12,7 +12,7 @@ const generate = async (
 	options: { output: string },
 ) => {
 	
-	const rfq = await validateSpec(Path.join(params.folder, 'src', 'specification', 'spec.json')); // generate rfq json from spec.json and schema
+	const rfq = await validateSpec(Path.join(params.folder, 'source', 'specification', 'spec.json')); // generate rfq json from spec.json and schema
 	zip.file('rfq.json', JSON.stringify(rfq, null, 2)); // add rfq.json to the release
 
 	const testFile = fs.readFileSync(Path.join(params.folder, 'testing', 'Testing.md'));
