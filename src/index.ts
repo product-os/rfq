@@ -25,7 +25,7 @@ const generate = async (
 		type: 'nodebuffer',
 		compression: 'DEFLATE'
 	});
-	fs.writeFileSync(Path.join(options.output), data, 'binary');
+	fs.writeFileSync(Path.join(options.output, 'release.zip'), data, 'binary');
 };
 
 // check the spec file against schema for the project type - at the moment this filters out fields not in the schema.
