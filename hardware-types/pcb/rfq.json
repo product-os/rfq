@@ -1,0 +1,38 @@
+{
+    "type": "object",
+    "properties": {
+	  "name": {
+		  "type": "string"
+	  },
+      "manufacture": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"properties": {
+				"parameters": {
+					"type": "object",
+					"properties": {
+						"material": {
+							"type": "string"
+						},
+						"surface-finish": {
+							"type": "string"
+						},
+                        "quantity": {
+                            "type": "number"
+                        },
+						"required": [
+							"material"
+						],
+						"additionalProperties": true
+					}
+				}
+			}
+		}
+	},
+	"required": [
+		"manufacture",
+		"name",
+	],
+	"additionalProperties": false
+}
