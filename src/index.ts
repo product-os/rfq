@@ -52,7 +52,7 @@ const generate = async (
 	const rfq = await validateSpec(specFile, schema);
 	zip.file('rfq.json', JSON.stringify(rfq, null, 2)); // add rfq.json to the release
 
-	packageFiles(Path.join(params.folder, 'outputs'), fileTypes);
+	packageFiles(Path.join(params.folder, 'output'), fileTypes);
 
 	const data = await zip.generateAsync({
 		type: 'nodebuffer',
