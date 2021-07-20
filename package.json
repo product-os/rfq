@@ -14,8 +14,8 @@
     "prepublish": "npm run build",
     "build": "tsc",
     "start": "node ./build/index.js",
-    "prettify": "balena-lint --typescript --fix src/ test/",
-    "lint": "balena-lint --typescript src/ test/ && tsc --noEmit"
+    "prettify": "balena-lint --typescript --fix src/",
+    "lint": "balena-lint --typescript src/ && tsc --noEmit"
   },
   "engines": {
     "node": ">= 8.3.0"
