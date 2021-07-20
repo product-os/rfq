@@ -20,11 +20,12 @@
 						},
                         "quantity": {
                             "type": "number"
-                        },
-						"required": [
-							"material"
-						],
-						"additionalProperties": true
+                        }
+					},
+					"required": [
+						"material"
+					],
+					"additionalProperties": true
 					}
 				}
 			}
@@ -32,7 +33,7 @@
 	},
 	"required": [
 		"manufacture",
-		"name",
+		"name"
 	],
 	"additionalProperties": false
 }
