@@ -1,4 +1,4 @@
 {
-    "fileTypes" : [".gbr", ".pdf", ".drl", ".txt", ".csv"]
+    "fileTypes" : [".gbr", ".pdf", ".drl", ".txt", ".csv",".OutJob",".IntLib",".PcbDoc",".PrjPcb",".SchDoc",".PcbLib",".SchLib",".BOMDOC"]
   }
   
