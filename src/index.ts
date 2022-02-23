@@ -12,14 +12,19 @@ const generate = async (
 	params: { folder: string },
 	options: { output: string },
 ) => {
-
 	const testFile = fs.readFileSync(
 		Path.join(params.folder, 'testing', 'Testing.md'),
 	);
 	const testContent = Buffer.from(testFile).toString('utf8');
 	zip.file('Testing.md', testContent);
 
-	const specFile = JSON.parse(fs.readFileSync(Path.join(params.folder, 'source', 'specification', 'spec.json'),).toString('utf8'));
+	const specFile = JSON.parse(
+		fs
+			.readFileSync(
+				Path.join(params.folder, 'source', 'specification', 'spec.json'),
+			)
+			.toString('utf8'),
+	);
 	const schema = await JSON.parse(
 		fs
 			.readFileSync(
@@ -48,11 +53,15 @@ const generate = async (
 			.toString('utf8'),
 	);
 
-	
 	const rfq = await validateSpec(specFile, schema);
 	zip.file('rfq.json', JSON.stringify(rfq, null, 2)); // add rfq.json to the release
 
+	// this is for packaging source files of a particular extension for the CI
 	packageFiles(Path.join(params.folder, 'source'), fileTypes);
+
+	// This should be done in the CI, as designer shouldn't have to put anything in `output`
+	// Right now, output is packaged for the convenience of the manufacturing lab
+	packageFiles(Path.join(params.folder, 'output'), fileTypes);
 
 	const data = await zip.generateAsync({
 		type: 'nodebuffer',
@@ -67,7 +76,6 @@ const generate = async (
 
 // check the spec file against schema for the project type - at the moment this filters out fields not in the schema.
 const validateSpec = async (spec: any, schema: any) => {
-	
 	const partRFQ = skhema.filter(schema, spec);
 	return partRFQ;
 };
@@ -80,10 +88,15 @@ const packageFiles = async (path: string, fileTypes: any) => {
 		if (fileName.isDirectory()) {
 			packageFiles(Path.join(path, fileName.name), fileTypes);
 		} else {
-			if(fileTypes.fileTypes.includes(Path.extname(Path.join(path, fileName.name)))){
+			if (
+				fileTypes.fileTypes.includes(
+					Path.extname(Path.join(path, fileName.name)),
+				)
+			) {
 				const fileRead = fs.readFileSync(Path.join(path, fileName.name));
 				const fileContent = Buffer.from(fileRead).toString('utf8');
-				zip.file(fileName.name, fileContent); // what should the files get called? is it ok just to dump all the files in there?
+				const folderName = path.substring(path.lastIndexOf('/') + 1);
+				zip.folder(folderName)?.file(fileName.name, fileContent);
 			}
 		}
 	});
