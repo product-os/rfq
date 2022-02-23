@@ -9,7 +9,7 @@ const zip = new JSZip();
 
 const generate = async (
 	params: { folder: string },
-	options: { output: string; releaseName: string },
+	options: { output: string; releaseName: string; commitID: string },
 ) => {
 	const testFile = fs.readFileSync(
 		Path.join(params.folder, 'testing', 'Testing.md'),
@@ -54,7 +54,7 @@ const generate = async (
 
 	const rfq = await validateSpec(specFile, schema);
 	zip.file('rfq.json', JSON.stringify(rfq, null, 2)); // add rfq.json to the release
-
+	zip.file('commitID.txt', options.commitID);
 	// this is for packaging source files of a particular extension for the CI
 	packageFiles(Path.join(params.folder, 'source'), fileTypes);
 
@@ -66,8 +66,11 @@ const generate = async (
 		type: 'nodebuffer',
 		compression: 'DEFLATE',
 	});
-	const release = 'release_' + options.releaseName + '.zip';
-	fs.writeFileSync(Path.join(options.output, release), data, 'binary');
+	fs.writeFileSync(
+		Path.join(options.output, `release_${options.releaseName}.zip`),
+		data,
+		'binary',
+	);
 };
 
 // check the spec file against schema for the project type - at the moment this filters out fields not in the schema.
@@ -113,6 +116,12 @@ capitano.command({
 			parameter: 'releaseName',
 			alias: ['r'],
 			description: 'Name of the release to be created, prepended by release_',
+		},
+		{
+			signature: 'commitID',
+			parameter: 'commitID',
+			alias: ['c'],
+			description: 'SHA of the latest commit ID',
 		},
 	],
 	action: generate,
