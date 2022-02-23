@@ -5,12 +5,11 @@ import JSZip from 'jszip';
 import * as Path from 'path';
 import * as skhema from 'skhema';
 
-const time = new Date().getTime();
 const zip = new JSZip();
 
 const generate = async (
 	params: { folder: string },
-	options: { output: string },
+	options: { output: string; releaseName: string },
 ) => {
 	const testFile = fs.readFileSync(
 		Path.join(params.folder, 'testing', 'Testing.md'),
@@ -67,11 +66,8 @@ const generate = async (
 		type: 'nodebuffer',
 		compression: 'DEFLATE',
 	});
-	fs.writeFileSync(
-		Path.join(options.output, `release_${time}.zip`),
-		data,
-		'binary',
-	);
+	const release = 'release_' + options.releaseName + '.zip';
+	fs.writeFileSync(Path.join(options.output, release), data, 'binary');
 };
 
 // check the spec file against schema for the project type - at the moment this filters out fields not in the schema.
@@ -111,6 +107,12 @@ capitano.command({
 			parameter: 'output',
 			alias: ['o'],
 			description: 'Output directory, defaults to path if not specified',
+		},
+		{
+			signature: 'releaseName',
+			parameter: 'releaseName',
+			alias: ['r'],
+			description: 'Name of the release to be created, prepended by release_',
 		},
 	],
 	action: generate,
