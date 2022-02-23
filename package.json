@@ -15,7 +15,8 @@
     "build": "tsc",
     "start": "node ./build/index.js",
     "prettify": "balena-lint --typescript --fix src/",
-    "lint": "balena-lint --typescript src/ && tsc --noEmit"
+    "lint": "balena-lint --typescript src/ && tsc --noEmit",
+    "test": "exit 0"
   },
   "engines": {
     "node": ">= 8.3.0"
