@@ -11,11 +11,23 @@ const generate = async (
 	params: { folder: string },
 	options: { output: string; releaseName: string; commitID: string },
 ) => {
-	const testFile = fs.readFileSync(
-		Path.join(params.folder, 'testing', 'Testing.md'),
-	);
-	const testContent = Buffer.from(testFile).toString('utf8');
-	zip.file('Testing.md', testContent);
+	try {
+		const testFolder = Path.join(params.folder, 'testing');
+		let fileCount = 0;
+		fs.readdirSync(testFolder).forEach((file) => {
+			const testContent = Buffer.from(file).toString('utf8');
+			zip.file('testing/' + file, testContent);
+			fileCount = fileCount + 1;
+		});
+		if (fileCount === 0) {
+			throw new Error(
+				'ERROR! You should have atleast one test file in the testing folder',
+			);
+		}
+	} catch (error) {
+		console.log(error);
+		return;
+	}
 
 	const specFile = JSON.parse(
 		fs
