@@ -1,6 +1,6 @@
 {
   "name": "rfq",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "private": false,
   "description": "generate RFQ archives for hardware repos",
   "main": "build/index.js",
@@ -45,6 +45,6 @@
     "skhema": "^5.3.0"
   },
   "versionist": {
-    "publishedAt": "2022-02-23T13:06:44.163Z"
+    "publishedAt": "2022-06-15T12:30:24.801Z"
   }
 }
