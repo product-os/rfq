@@ -42,7 +42,7 @@
     "capitano": "^1.9.2",
     "jszip": "^3.5.0",
     "node-zip": "^1.1.1",
-    "skhema": "^5.3.0"
+    "skhema": "^6.0.0"
   },
   "versionist": {
     "publishedAt": "2022-06-15T12:30:24.801Z"
