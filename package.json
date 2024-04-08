@@ -33,7 +33,7 @@
   "homepage": "https://github.com/balena-io/rfq#readme",
   "devDependencies": {
     "tslint": "^6.1.2",
-    "typescript": "^3.8.3"
+    "typescript": "^5.0.0"
   },
   "dependencies": {
     "@balena/lint": "^5.0.4",
