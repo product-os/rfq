@@ -36,7 +36,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@balena/lint": "^5.0.4",
+    "@balena/lint": "^8.0.0",
     "@types/jszip": "^3.4.1",
     "@types/lodash": "^4.14.150",
     "capitano": "^1.9.2",
